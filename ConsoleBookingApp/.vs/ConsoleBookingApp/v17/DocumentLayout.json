@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\crm-c\\ConsoleBookingApp\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6DFA8AEE-D02F-48F6-B6BD-76F0DC045F44}|ConsoleBookingApp\\ConsoleBookingApp.csproj|d:\\crm-c\\consolebookingapp\\consolebookingapp\\clienthandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6DFA8AEE-D02F-48F6-B6BD-76F0DC045F44}|ConsoleBookingApp\\ConsoleBookingApp.csproj|solutionrelative:consolebookingapp\\clienthandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DFA8AEE-D02F-48F6-B6BD-76F0DC045F44}|ConsoleBookingApp\\ConsoleBookingApp.csproj|D:\\crm-c\\ConsoleBookingApp\\consolebookingapp\\managerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6DFA8AEE-D02F-48F6-B6BD-76F0DC045F44}|ConsoleBookingApp\\ConsoleBookingApp.csproj|solutionrelative:consolebookingapp\\managerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DFA8AEE-D02F-48F6-B6BD-76F0DC045F44}|ConsoleBookingApp\\ConsoleBookingApp.csproj|D:\\crm-c\\ConsoleBookingApp\\consolebookingapp\\managerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6DFA8AEE-D02F-48F6-B6BD-76F0DC045F44}|ConsoleBookingApp\\ConsoleBookingApp.csproj|solutionrelative:consolebookingapp\\managerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6DFA8AEE-D02F-48F6-B6BD-76F0DC045F44}|ConsoleBookingApp\\ConsoleBookingApp.csproj|d:\\crm-c\\consolebookingapp\\consolebookingapp\\appsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6DFA8AEE-D02F-48F6-B6BD-76F0DC045F44}|ConsoleBookingApp\\ConsoleBookingApp.csproj|solutionrelative:consolebookingapp\\appsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AppSettings.cs",
+              "DocumentMoniker": "D:\\crm-c\\ConsoleBookingApp\\ConsoleBookingApp\\AppSettings.cs",
+              "RelativeDocumentMoniker": "ConsoleBookingApp\\AppSettings.cs",
+              "ToolTip": "D:\\crm-c\\ConsoleBookingApp\\ConsoleBookingApp\\AppSettings.cs",
+              "RelativeToolTip": "ConsoleBookingApp\\AppSettings.cs",
+              "ViewState": "AgIAACUAAAAAAAAAAAAgwEwAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T23:01:54.535Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ManagerService.cs",
+              "DocumentMoniker": "D:\\crm-c\\ConsoleBookingApp\\ConsoleBookingApp\\ManagerService.cs",
+              "RelativeDocumentMoniker": "ConsoleBookingApp\\ManagerService.cs",
+              "ToolTip": "D:\\crm-c\\ConsoleBookingApp\\ConsoleBookingApp\\ManagerService.cs",
+              "RelativeToolTip": "ConsoleBookingApp\\ManagerService.cs",
+              "ViewState": "AgIAAE0CAAAAAAAAAAAkwGYCAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T11:41:24.762Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ManagerRepository.cs",
+              "DocumentMoniker": "D:\\crm-c\\ConsoleBookingApp\\ConsoleBookingApp\\ManagerRepository.cs",
+              "RelativeDocumentMoniker": "ConsoleBookingApp\\ManagerRepository.cs",
+              "ToolTip": "D:\\crm-c\\ConsoleBookingApp\\ConsoleBookingApp\\ManagerRepository.cs",
+              "RelativeToolTip": "ConsoleBookingApp\\ManagerRepository.cs",
+              "ViewState": "AgIAAI0CAAAAAAAAAAAiwKYCAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T11:41:23.578Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ClientHandler.cs",
+              "DocumentMoniker": "D:\\crm-c\\ConsoleBookingApp\\ConsoleBookingApp\\ClientHandler.cs",
+              "RelativeDocumentMoniker": "ConsoleBookingApp\\ClientHandler.cs",
+              "ToolTip": "D:\\crm-c\\ConsoleBookingApp\\ConsoleBookingApp\\ClientHandler.cs",
+              "RelativeToolTip": "ConsoleBookingApp\\ClientHandler.cs",
+              "ViewState": "AgIAAMoCAAAAAAAAAAAiwOMCAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-24T16:34:05.519Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
