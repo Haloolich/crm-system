@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\crm-c\\crmV1 \u2014 \u043A\u043E\u043F\u0438\u044F\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{41253037-2CA1-4ECA-AD92-C1605936EFD8}|crmV1\\crmV1\\crmV1.csproj|d:\\crm-c\\crmv1 \u2014 \u043A\u043E\u043F\u0438\u044F\\crmv1\\crmv1\\apiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{41253037-2CA1-4ECA-AD92-C1605936EFD8}|crmV1\\crmV1\\crmV1.csproj|solutionrelative:crmv1\\crmv1\\apiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ApiClient.cs",
+              "DocumentMoniker": "D:\\crm-c\\crmV1 \u2014 \u043A\u043E\u043F\u0438\u044F\\crmV1\\crmV1\\ApiClient.cs",
+              "RelativeDocumentMoniker": "crmV1\\crmV1\\ApiClient.cs",
+              "ToolTip": "D:\\crm-c\\crmV1 \u2014 \u043A\u043E\u043F\u0438\u044F\\crmV1\\crmV1\\ApiClient.cs",
+              "RelativeToolTip": "crmV1\\crmV1\\ApiClient.cs",
+              "ViewState": "AgIAAGMBAAAAAAAAAAAUwHoBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T11:32:59.056Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
