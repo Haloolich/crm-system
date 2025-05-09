@@ -1,0 +1,101 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\crm-c\\crmV1 \u2014 \u043A\u043E\u043F\u0438\u044F\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{41253037-2CA1-4ECA-AD92-C1605936EFD8}|crmV1\\crmV1\\crmV1.csproj|d:\\crm-c\\crmv1 \u2014 \u043A\u043E\u043F\u0438\u044F\\crmv1\\crmv1\\managerspage.xaml||{2974C621-7033-421A-B08A-11D27B021D1B}",
+      "RelativeMoniker": "D:0:0:{41253037-2CA1-4ECA-AD92-C1605936EFD8}|crmV1\\crmV1\\crmV1.csproj|solutionrelative:crmv1\\crmv1\\managerspage.xaml||{2974C621-7033-421A-B08A-11D27B021D1B}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{41253037-2CA1-4ECA-AD92-C1605936EFD8}|crmV1\\crmV1\\crmV1.csproj|d:\\crm-c\\crmv1 \u2014 \u043A\u043E\u043F\u0438\u044F\\crmv1\\crmv1\\clubspage.xaml||{2974C621-7033-421A-B08A-11D27B021D1B}",
+      "RelativeMoniker": "D:0:0:{41253037-2CA1-4ECA-AD92-C1605936EFD8}|crmV1\\crmV1\\crmV1.csproj|solutionrelative:crmv1\\crmv1\\clubspage.xaml||{2974C621-7033-421A-B08A-11D27B021D1B}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{41253037-2CA1-4ECA-AD92-C1605936EFD8}|crmV1\\crmV1\\crmV1.csproj|d:\\crm-c\\crmv1 \u2014 \u043A\u043E\u043F\u0438\u044F\\crmv1\\crmv1\\loginpage.xaml||{2974C621-7033-421A-B08A-11D27B021D1B}",
+      "RelativeMoniker": "D:0:0:{41253037-2CA1-4ECA-AD92-C1605936EFD8}|crmV1\\crmV1\\crmV1.csproj|solutionrelative:crmv1\\crmv1\\loginpage.xaml||{2974C621-7033-421A-B08A-11D27B021D1B}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{41253037-2CA1-4ECA-AD92-C1605936EFD8}|crmV1\\crmV1\\crmV1.csproj|d:\\crm-c\\crmv1 \u2014 \u043A\u043E\u043F\u0438\u044F\\crmv1\\crmv1\\addclubpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{41253037-2CA1-4ECA-AD92-C1605936EFD8}|crmV1\\crmV1\\crmV1.csproj|solutionrelative:crmv1\\crmv1\\addclubpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{41253037-2CA1-4ECA-AD92-C1605936EFD8}|crmV1\\crmV1\\crmV1.csproj|d:\\crm-c\\crmv1 \u2014 \u043A\u043E\u043F\u0438\u044F\\crmv1\\crmv1\\mainpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{41253037-2CA1-4ECA-AD92-C1605936EFD8}|crmV1\\crmV1\\crmV1.csproj|solutionrelative:crmv1\\crmv1\\mainpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ManagersPage.xaml",
+              "DocumentMoniker": "D:\\crm-c\\crmV1 \u2014 \u043A\u043E\u043F\u0438\u044F\\crmV1\\crmV1\\ManagersPage.xaml",
+              "RelativeDocumentMoniker": "crmV1\\crmV1\\ManagersPage.xaml",
+              "ToolTip": "D:\\crm-c\\crmV1 \u2014 \u043A\u043E\u043F\u0438\u044F\\crmV1\\crmV1\\ManagersPage.xaml",
+              "RelativeToolTip": "crmV1\\crmV1\\ManagersPage.xaml",
+              "ViewState": "AgIAADAAAAAAAAAAAAAIwD0AAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-05-06T16:00:41.544Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "LoginPage.xaml",
+              "DocumentMoniker": "D:\\crm-c\\crmV1 \u2014 \u043A\u043E\u043F\u0438\u044F\\crmV1\\crmV1\\LoginPage.xaml",
+              "RelativeDocumentMoniker": "crmV1\\crmV1\\LoginPage.xaml",
+              "ToolTip": "D:\\crm-c\\crmV1 \u2014 \u043A\u043E\u043F\u0438\u044F\\crmV1\\crmV1\\LoginPage.xaml",
+              "RelativeToolTip": "crmV1\\crmV1\\LoginPage.xaml",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAACsAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-05-06T15:55:00.375Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ClubsPage.xaml",
+              "DocumentMoniker": "D:\\crm-c\\crmV1 \u2014 \u043A\u043E\u043F\u0438\u044F\\crmV1\\crmV1\\ClubsPage.xaml",
+              "RelativeDocumentMoniker": "crmV1\\crmV1\\ClubsPage.xaml",
+              "ToolTip": "D:\\crm-c\\crmV1 \u2014 \u043A\u043E\u043F\u0438\u044F\\crmV1\\crmV1\\ClubsPage.xaml",
+              "RelativeToolTip": "crmV1\\crmV1\\ClubsPage.xaml",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAACwAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-05-06T15:54:35.198Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MainPage.xaml.cs",
+              "DocumentMoniker": "D:\\crm-c\\crmV1 \u2014 \u043A\u043E\u043F\u0438\u044F\\crmV1\\crmV1\\MainPage.xaml.cs",
+              "RelativeDocumentMoniker": "crmV1\\crmV1\\MainPage.xaml.cs",
+              "ToolTip": "D:\\crm-c\\crmV1 \u2014 \u043A\u043E\u043F\u0438\u044F\\crmV1\\crmV1\\MainPage.xaml.cs",
+              "RelativeToolTip": "crmV1\\crmV1\\MainPage.xaml.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAswD8AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T15:51:12.187Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AddClubPage.xaml.cs",
+              "DocumentMoniker": "D:\\crm-c\\crmV1 \u2014 \u043A\u043E\u043F\u0438\u044F\\crmV1\\crmV1\\AddClubPage.xaml.cs",
+              "RelativeDocumentMoniker": "crmV1\\crmV1\\AddClubPage.xaml.cs",
+              "ToolTip": "D:\\crm-c\\crmV1 \u2014 \u043A\u043E\u043F\u0438\u044F\\crmV1\\crmV1\\AddClubPage.xaml.cs",
+              "RelativeToolTip": "crmV1\\crmV1\\AddClubPage.xaml.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABAAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T15:49:25.4Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
