@@ -1,0 +1,36 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "crmV1", "crmV1\crmV1.csproj", "{F38CF16E-259F-555F-DF03-193BBC66E5D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "crmV1.Android", "crmV1.Android\crmV1.Android.csproj", "{47F22366-4345-2323-2EBD-743F60CF614F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "crmV1.iOS", "crmV1.iOS\crmV1.iOS.csproj", "{AD5F977F-274E-21DA-A3D8-772545B786F9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F38CF16E-259F-555F-DF03-193BBC66E5D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F38CF16E-259F-555F-DF03-193BBC66E5D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F38CF16E-259F-555F-DF03-193BBC66E5D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F38CF16E-259F-555F-DF03-193BBC66E5D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47F22366-4345-2323-2EBD-743F60CF614F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47F22366-4345-2323-2EBD-743F60CF614F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47F22366-4345-2323-2EBD-743F60CF614F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47F22366-4345-2323-2EBD-743F60CF614F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD5F977F-274E-21DA-A3D8-772545B786F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD5F977F-274E-21DA-A3D8-772545B786F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD5F977F-274E-21DA-A3D8-772545B786F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD5F977F-274E-21DA-A3D8-772545B786F9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DF17B1C4-98F7-4E8F-9836-0FFDABB683E3}
+	EndGlobalSection
+EndGlobal

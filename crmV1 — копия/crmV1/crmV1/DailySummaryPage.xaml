@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="crmV1.Views.DailySummaryPage"
+             xmlns:models="clr-namespace:crmV1.Models"
+             xmlns:converters="clr-namespace:crmV1.Converters"
+             Title="Підсумок дня"
+             BackgroundColor="#181A20">
+
+    <ContentPage.Resources>
+        <!-- Додайте стилі з MainPage, якщо вони потрібні -->
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="#EAEAEA" />
+            <Setter Property="FontFamily" Value="Roboto" />
+        </Style>
+        <!-- Конвертер для кольору фону елемента списку -->
+        <converters:BoolToColorConverter x:Key="AttentionColorConverter"
+                                         FalseColor="Transparent"
+                                         TrueColor="#FFEB3B" />
+        <!-- Жовтий для уваги -->
+        <converters:BoolToColorConverter x:Key="NeedsAttentionBackgroundColorConverter"
+                                        FalseColor="#2C2F38"
+            TrueColor="#5B4100" />
+            <!-- Темніший жовтий фон -->
+            <!-- Додаємо конвертер для стилів шрифту -->
+            <converters:BoolToFontAttributesConverter x:Key="BoolToFontAttributesConverter"/>
+
+    </ContentPage.Resources>
+
+    <AbsoluteLayout>
+
+        <StackLayout AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0, 0, 1, 1">
+
+            <!-- Заголовок з вибором дати -->
+            <Frame BackgroundColor="#2C2F38" Padding="10" Margin="10" CornerRadius="12" HorizontalOptions="Center">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
+                    <ImageButton Source="drawable/prev.png" Clicked="PreviousDate" HeightRequest="30" WidthRequest="30" BackgroundColor="Transparent"/>
+                    <Label x:Name="selectedDateLabel"
+                           FontSize="Medium"
+                           VerticalOptions="Center">
+                        <!-- ВИПРАВЛЕНО: Правильний синтаксис GestureRecognizers -->
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OpenDatePicker" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <ImageButton Source="drawable/next.png" Clicked="NextDate" HeightRequest="30" WidthRequest="30" BackgroundColor="Transparent"/>
+                </StackLayout>
+            </Frame>
+
+            <!-- Розділ Підсумків -->
+            <Frame BackgroundColor="#2C2F38" Padding="15" Margin="10" CornerRadius="12">
+                <StackLayout Spacing="10">
+                    <Label Text="Підсумки за день:" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
+                    <BoxView HeightRequest="1" BackgroundColor="#5A5A5A"/>
+                    <!-- Розділювач -->
+
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Відіграних сесій:" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
+                        <!-- Уточнено текст -->
+                        <Label x:Name="totalSessionsLabel" Text="0" FontSize="Medium" HorizontalOptions="End"/>
+                    </StackLayout>
+
+                    <!-- ДОДАНО: Кількість скасованих сесій -->
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Скасовано:" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
+                        <Label x:Name="cancelledSessionsCountLabel" Text="0" FontSize="Medium" HorizontalOptions="End"/>
+                    </StackLayout>
+                    <!-- КІНЕЦЬ ДОДАНО -->
+
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Зароблено за день:" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                        <!-- Уточнено текст -->
+                        <Label x:Name="totalAmountLabel" Text="0.00 ₴" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="End"/>
+                    </StackLayout>
+
+                    <BoxView HeightRequest="1" BackgroundColor="#5A5A5A"/>
+                    <!-- Розділювач -->
+
+                    <Label Text="Оплачено по методам:" FontSize="Medium" FontAttributes="Bold"/>
+                    <!-- Уточнено текст -->
+
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Готівка:" FontSize="Small" HorizontalOptions="StartAndExpand"/>
+                        <Label x:Name="cashAmountLabel" Text="0.00 ₴" FontSize="Small" HorizontalOptions="End"/>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Картка:" FontSize="Small" HorizontalOptions="StartAndExpand"/>
+                        <Label x:Name="cardAmountLabel" Text="0.00 ₴" FontSize="Small" HorizontalOptions="End"/>
+                    </StackLayout>
+                    <!-- Додайте Labelи для інших методів оплати, якщо вони є -->
+                </StackLayout>
+            </Frame>
+
+
+            <!-- Список Сесій -->
+            <Label Text="Список сесій:" FontSize="Large" FontAttributes="Bold" Margin="10,0,10,5"/>
+
+            <ListView x:Name="dailySessionsList"
+                      HasUnevenRows="True"
+                      BackgroundColor="Transparent"
+                      SeparatorVisibility="None"
+                      VerticalOptions="FillAndExpand">
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <!-- ВИКОРИСТОВУЄМО BackgroundColorConverter для Frame -->
+                            <Frame Padding="10" CornerRadius="8" Margin="5"
+                                   BackgroundColor="{Binding NeedsAttention, Converter={StaticResource NeedsAttentionBackgroundColorConverter}}">
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="10">
+                                    <!-- Час -->
+                                    <Label Text="{Binding Time}"
+                                           FontSize="Medium"
+                                           VerticalOptions="Center"
+                                           FontAttributes="{Binding NeedsAttention, Converter={StaticResource BoolToFontAttributesConverter}}"/>
+                                    <!-- Використовуємо конвертер -->
+
+                                    <!-- Клієнт та Статус -->
+                                    <StackLayout HorizontalOptions="FillAndExpand">
+                                        <Label Text="{Binding ClientName}"
+                                                FontSize="Medium"
+                                                 FontAttributes="{Binding NeedsAttention, Converter={StaticResource BoolToFontAttributesConverter}}"/>
+                                        <!-- Використовуємо конвертер -->
+                                        <Label Text="{Binding PaymentStatus}"
+                                                FontSize="Small"
+                                                 FontAttributes="{Binding NeedsAttention, Converter={StaticResource BoolToFontAttributesConverter}}"/>
+                                        <!-- Використовуємо конвертер -->
+                                    </StackLayout>
+
+                                    <!-- Сума та Метод -->
+                                    <StackLayout HorizontalOptions="End">
+                                        <Label Text="{Binding Amount, StringFormat='{0:C}'}"
+                                            FontSize="Medium"
+                                                 FontAttributes="{Binding NeedsAttention, Converter={StaticResource BoolToFontAttributesConverter}}"/>
+                                            <!-- Використовуємо конвертер -->
+                                            <Label Text="{Binding PaymentMethod}"
+                                                FontSize="Small"
+                                                 FontAttributes="{Binding NeedsAttention, Converter={StaticResource BoolToFontAttributesConverter}}"/>
+                                            <!-- Використовуємо конвертер -->
+                                    </StackLayout>
+                                </StackLayout>
+                                <!-- Можливо, додати TapGestureRecognizer, якщо хочете відкривати деталі сесії -->
+                                <!--
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnSessionTapped" CommandParameter="{Binding}" />
+                                </Frame.GestureRecognizers>
+                                -->
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </StackLayout>
+
+        <!-- Затемнення та DatePicker -->
+        <BoxView x:Name="overlay" BackgroundColor="Black" Opacity="0.5"
+                 IsVisible="False"
+                 AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                 AbsoluteLayout.LayoutFlags="All">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="CloseDatePicker" />
+            </BoxView.GestureRecognizers>
+        </BoxView>
+
+        <DatePicker x:Name="datePicker"
+             Format="dd.MM.yyyy"
+             TextColor="Black"
+             BackgroundColor="White"
+             IsVisible="False"
+             DateSelected="OnDateSelected"
+             AbsoluteLayout.LayoutBounds="0.5,0.5,AutoSize,AutoSize"
+             AbsoluteLayout.LayoutFlags="PositionProportional"/>
+
+        <!-- Індикатор завантаження -->
+        <ActivityIndicator x:Name="loadingIndicator"
+                   AbsoluteLayout.LayoutBounds="0.5,0.5,AutoSize,AutoSize"
+                   AbsoluteLayout.LayoutFlags="PositionProportional"
+                   IsRunning="False"
+                   IsVisible="False"
+                   Color="White"
+                   BackgroundColor="Transparent"/>
+
+    </AbsoluteLayout>
+</ContentPage>

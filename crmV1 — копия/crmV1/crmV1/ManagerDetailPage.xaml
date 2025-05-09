@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="crmV1.ManagerDetailPage" 
+    Title="Деталі Менеджера"
+    BackgroundColor="#181A20">
+
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="#EAEAEA" />
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+        <Style TargetType="Entry">
+            <Setter Property="TextColor" Value="#EAEAEA" />
+            <Setter Property="PlaceholderColor" Value="#757575" />
+            <Setter Property="BackgroundColor" Value="#2C2F38" />
+            <Setter Property="Keyboard" Value="Default" />
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="HeightRequest" Value="45"/>
+            <!-- Задаємо висоту для відповідності Picker -->
+            <!-- Додаємо padding -->
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#1B75BB" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="HeightRequest" Value="50" />
+        </Style>
+        <!-- Додаємо стиль для Picker, щоб він відповідав дизайну -->
+        <Style TargetType="Picker">
+            <Setter Property="TextColor" Value="#EAEAEA" />
+            <Setter Property="TitleColor" Value="#757575" />
+            <!-- Placeholder Color for Picker -->
+            <Setter Property="BackgroundColor" Value="#2C2F38" />
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="HeightRequest" Value="45"/>
+            <!-- Задаємо висоту -->
+            <!-- Додаємо padding -->
+        </Style>
+        <Style TargetType="Frame">
+            <Setter Property="HasShadow" Value="False"/>
+            <Setter Property="BackgroundColor" Value="#2C2F38" />
+            <Setter Property="Padding" Value="0"/>
+            <!-- В Frame, що обгортає Picker/Entry, Padding не потрібен, бо його задає Picker/Entry -->
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Margin" Value="0"/>
+            <!-- Frame тут використовується як декоративний контейнер для Picker/Entry -->
+        </Style>
+    </ContentPage.Resources>
+
+    <AbsoluteLayout>
+        <!-- ScrollView для можливості прокрутки -->
+        <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <!-- Основний StackLayout з відступом та відстанню між елементами -->
+            <StackLayout Padding="20" Spacing="15">
+
+                <Label Text="Деталі Менеджера" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
+
+                <!-- Ім'я -->
+                <Label Text="Ім'я:" FontSize="Medium"/>
+                <!-- Frame як візуальний контейнер для Entry -->
+                <Frame Padding="0" CornerRadius="8" BackgroundColor="#2C2F38">
+                    <Entry x:Name="nameEntry" Placeholder="Введіть ім'я" Margin="0" VerticalOptions="FillAndExpand"/>
+                </Frame>
+
+
+                <!-- Номер телефону -->
+                <Label Text="Номер телефону:" FontSize="Medium"/>
+                <!-- Frame як візуальний контейнер для Entry -->
+                <Frame Padding="0" CornerRadius="8" BackgroundColor="#2C2F38">
+                    <Entry x:Name="phoneEntry" Placeholder="Введіть номер телефону" Keyboard="Telephone" Margin="0" VerticalOptions="FillAndExpand"/>
+                </Frame>
+
+
+                <!-- Роль -->
+                <Label Text="Роль:" FontSize="Medium"/>
+                <!-- Frame як візуальний контейнер для Picker -->
+                <Frame Padding="0" CornerRadius="8" BackgroundColor="#2C2F38">
+                    <!-- ItemsSource буде заповнено зі списку доступних ролей -->
+                    <!-- ItemDisplayBinding="Name" вказує, яку властивість об'єкта Role використовувати для відображення -->
+                    <Picker x:Name="rolePicker" Title="Виберіть роль" ItemDisplayBinding="{Binding Name}" Margin="0" VerticalOptions="FillAndExpand"/>
+                </Frame>
+
+                <!-- Клуб -->
+                <Label Text="Клуб:" FontSize="Medium"/>
+                <!-- Frame як візуальний контейнер для Picker -->
+                <Frame Padding="0" CornerRadius="8" BackgroundColor="#2C2F38">
+                    <!-- ItemsSource буде заповнено зі списку доступних клубів -->
+                    <!-- ItemDisplayBinding="Name" вказує, яку властивість об'єкта Club використовувати для відображення -->
+                    <Picker x:Name="clubPicker" Title="Виберіть клуб" ItemDisplayBinding="{Binding Name}" Margin="0" VerticalOptions="FillAndExpand"/>
+                </Frame>
+
+                <!-- Кнопка Зберегти -->
+                <!-- Виносимо кнопку в окремий StackLayout з відступом зверху -->
+                <StackLayout Margin="0,50,0,0">
+                    <Button x:Name="saveButton" Text="Зберегти" Clicked="OnSaveClicked" BackgroundColor="#1B75BB"/>
+                </StackLayout>
+
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Activity Indicator (показуємо під час завантаження/збереження) -->
+        <ActivityIndicator x:Name="activityIndicator"
+                           AbsoluteLayout.LayoutBounds="0.5,0.5,AutoSize,AutoSize"
+                           AbsoluteLayout.LayoutFlags="PositionProportional"
+                           IsRunning="False"
+                           IsVisible="False"
+                           Color="White"
+                           BackgroundColor="#80000000"/>
+
+    </AbsoluteLayout>
+</ContentPage>

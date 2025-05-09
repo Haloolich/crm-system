@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="crmV1.NotificationsPage"
+             BackgroundColor="#181A20"
+             xmlns:models="clr-namespace:crmV1.Models">
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="#EAEAEA" />
+            <Setter Property="FontFamily" Value="Roboto" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#1B75BB" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="HeightRequest" Value="50" />
+        </Style>
+    </ContentPage.Resources>
+        <!-- Ось тут починається ContentPage.Content -->
+    <ContentPage.Content>
+        <StackLayout>
+            <!-- Весь вміст сторінки -->
+            <Label Text="Нові бронювання" FontSize="Large" HorizontalOptions="CenterAndExpand" Margin="10"/>
+            <ActivityIndicator x:Name="loadingIndicator" IsVisible="False" IsRunning="False" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"/>
+            <ListView x:Name="newBookingsList" SeparatorVisibility="Default" HasUnevenRows="True" ItemSelected="NewBookingsList_ItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame Padding="10" Margin="5" CornerRadius="5" BackgroundColor="#2C2F38">
+                                <StackLayout Orientation="Vertical" Spacing="5">
+                                    
+                                        <Label Text="{Binding ClientName}" FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                                        <Label Text="{Binding BookingDateTime, StringFormat='{0:dd.MM.yyyy}'}" FontAttributes="Italic" HorizontalOptions="StartAndExpand"/>
+                                    <Label Text="{Binding DisplayTime}" FontAttributes="Italic" HorizontalOptions="StartAndExpand"/>
+                                    
+                                    <Label Text="{Binding Phone}"/>
+                                    <Label Text="{Binding DisplayDetails}"/>
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="End">
+                                        <Button Text="Видалити" BackgroundColor="#6F1BC9" TextColor="White" FontSize="Small" Clicked="OnDeleteBookingClicked"/>
+                                        <Button Text="Підтвердити" BackgroundColor="#1B75BB" TextColor="White" FontSize="Small" Clicked="OnConfirmBookingClicked"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+    <!-- Ось тут ContentPage.Content закінчується -->
+
+</ContentPage>

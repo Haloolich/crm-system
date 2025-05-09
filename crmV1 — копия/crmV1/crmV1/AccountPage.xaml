@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="crmV1.AccountPage"
+             Title="Мій Акаунт"
+             BackgroundColor="#181A20">
+
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="#EAEAEA" />
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="Margin" Value="0"/>
+            <!-- Задаємо стандартний відступ 0 -->
+        </Style>
+        <Style TargetType="Entry">
+            <Setter Property="TextColor" Value="#EAEAEA" />
+            <Setter Property="PlaceholderColor" Value="#757575" />
+            <Setter Property="BackgroundColor" Value="#2C2F38" />
+            <Setter Property="Keyboard" Value="Default" />
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="Margin" Value="0"/>
+            <!-- Змінюємо Margin на 0 -->
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#1B75BB" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Margin" Value="0" />
+            <!-- Змінюємо Margin на 0, щоб Spacing працював як очікується -->
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="HeightRequest" Value="50" />
+        </Style>
+        <Style TargetType="Frame">
+            <Setter Property="HasShadow" Value="False"/>
+            <Setter Property="BackgroundColor" Value="#2C2F38" />
+            <!-- Додаємо стандартний колір -->
+            <Setter Property="Padding" Value="10"/>
+            <!-- Додаємо стандартний Padding -->
+            <Setter Property="CornerRadius" Value="8"/>
+            <!-- Додаємо стандартний CornerRadius -->
+            <Setter Property="Margin" Value="0"/>
+            <!-- Змінюємо Margin на 0 -->
+        </Style>
+    </ContentPage.Resources>
+
+    <!-- Використовуємо AbsoluteLayout, щоб розмістити ActivityIndicator поверх вмісту -->
+    <AbsoluteLayout>
+
+        <!-- Головний вміст сторінки -->
+        <!-- ScrollView для можливості прокрутки, якщо вміст не поміщається -->
+        <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <!-- Основний StackLayout з відступом 20 з усіх боків та відстанню 15 між елементами -->
+            <StackLayout Padding="20" Spacing="15">
+
+                <Label Text="Інформація про Менеджера" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
+
+                <!-- Ім'я -->
+                <Label Text="Ім'я:" FontSize="Medium"/>
+                <Entry x:Name="nameEntry" Placeholder="Введіть ваше ім'я" />
+
+                <!-- Номер телефону -->
+                <Label Text="Номер телефону:" FontSize="Medium"/>
+                <Entry x:Name="phoneEntry" Placeholder="Введіть номер телефону" Keyboard="Telephone" />
+
+                <!-- Роль -->
+                <Label Text="Роль:" FontSize="Medium"/>
+                <!-- Frame тепер використовує стилі за замовчуванням, відступ задається Spacing="15" батьківського StackLayout -->
+                <Frame>
+                    <Label x:Name="roleLabel" Text="Завантаження..." FontSize="Medium" TextColor="#EAEAEA"/>
+                </Frame>
+
+                <!-- Клуб -->
+                <Label Text="Клуб:" FontSize="Medium"/>
+                <!-- Frame тепер використовує стилі за замовчуванням, відступ задається Spacing="15" батьківського StackLayout -->
+                <Frame>
+                    <Label x:Name="clubLabel" Text="Завантаження..." FontSize="Medium" TextColor="#EAEAEA"/>
+                </Frame>
+
+                <!-- ОКРЕМИЙ КОНТЕЙНЕР ДЛЯ КНОПОК -->
+                <!-- Цей StackLayout матиме відступ 15 зверху (відповідно до Spacing батьківського StackLayout)
+                     та менший відступ Spacing="8" між своїми дочірніми елементами (кнопками) -->
+                <StackLayout Spacing="20" Margin="0,50">
+                    <!-- Кнопка Зберегти - використовує стилі за замовчуванням (Margin=0) -->
+                    <Button x:Name="saveButton" Text="Зберегти" Clicked="OnSaveClicked" BackgroundColor="#1B75BB"/>
+
+                    <!-- Кнопка Вийти на роботу - використовує стилі за замовчуванням (Margin=0) -->
+                    <Button x:Name="startWorkButton" Text="Вийти на роботу" Clicked="OnStartWorkClicked" BackgroundColor="#1B75BB"/>
+                </StackLayout>
+
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Activity Indicator (показуємо під час завантаження/збереження) -->
+        <ActivityIndicator x:Name="activityIndicator"
+                           AbsoluteLayout.LayoutBounds="0.5,0.5,AutoSize,AutoSize"
+                           AbsoluteLayout.LayoutFlags="PositionProportional"
+                           IsRunning="False"
+                           IsVisible="False"
+                           Color="White"
+                           BackgroundColor="#80000000"/>
+        <!-- BackgroundColor з альфа-каналом створює напівпрозоре затемнення -->
+
+    </AbsoluteLayout>
+</ContentPage>

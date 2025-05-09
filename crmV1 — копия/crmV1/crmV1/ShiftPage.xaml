@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="crmV1.ShiftPage"
+             Title="Керування змінами"
+             BackgroundColor="#181A20">
+
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="#EAEAEA" />
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#1B75BB" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="HeightRequest" Value="50" />
+        </Style>
+        <Style x:Key="Frame" TargetType="Frame">
+            <Setter Property="HasShadow" Value="False"/>
+            <Setter Property="BackgroundColor" Value="#2C2F38" />
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <!-- Використовуємо AbsoluteLayout для ActivityIndicator -->
+    <AbsoluteLayout>
+
+        <!-- Головний вміст сторінки -->
+        <!-- ScrollView для можливості прокрутки, якщо вміст не поміщається -->
+        <!-- ДОДАЄМО x:Name="contentScrollView" -->
+        <ScrollView x:Name="contentScrollView" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <!-- Основний StackLayout -->
+            <StackLayout Padding="20" Spacing="15">
+
+                <Label Text="Керування робочою зміною" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
+
+                <!-- Статус поточної зміни -->
+                <Label Text="Статус:" FontSize="Medium"/>
+                <Frame BackgroundColor="#2C2F38" CornerRadius="10">
+                    <Label x:Name="shiftStatusLabel" Text="Завантаження статусу..." FontSize="Medium" TextColor="#EAEAEA"/>
+                </Frame>
+
+                <!-- Кнопки дій -->
+                <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center" Margin="0, 20">
+                    <Button x:Name="openShiftButton" Text="Відкрити зміну" WidthRequest="150" Clicked="OnOpenShiftClicked" IsEnabled="False"/>
+                    <Button x:Name="closeShiftButton" Text="Закрити зміну" WidthRequest="150" Clicked="OnCloseShiftClicked" IsEnabled="False"/>
+                </StackLayout>
+
+                <!-- Роздільник -->
+                <BoxView HeightRequest="1" BackgroundColor="#555" Margin="0, 20"/>
+
+                <!-- Історія змін -->
+                <Label Text="Останні 3 зміни:" FontSize="Medium" FontAttributes="Bold"/>
+
+                <!-- Контейнер для історії змін (буде заповнюватися кодом) -->
+                <StackLayout x:Name="historyStackLayout" Spacing="10">
+                    <!-- Тут будуть додані Label або Frame для кожної зміни -->
+                    <Label Text="Завантаження історії..." FontAttributes="Italic"/>
+                </StackLayout>
+
+
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Activity Indicator -->
+        <ActivityIndicator x:Name="activityIndicator"
+                           AbsoluteLayout.LayoutBounds="0.5,0.5,AutoSize,AutoSize"
+                           AbsoluteLayout.LayoutFlags="PositionProportional"
+                           IsRunning="False"
+                           IsVisible="False"
+                           Color="White"
+                           BackgroundColor="#80000000"/>
+
+    </AbsoluteLayout>
+</ContentPage>

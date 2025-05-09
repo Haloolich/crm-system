@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="crmV1.OrderDetailsPage"
+             Title="Деталі замовлення"
+             BackgroundColor="#181A20">
+
+    <ContentPage.Resources>
+        <!-- Стилі для стандартних елементів -->
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="#EAEAEA" />
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="Margin" Value="0"/>
+            <!-- Standard margin -->
+        </Style>
+        <Style TargetType="Picker">
+            <Setter Property="TextColor" Value="#EAEAEA" />
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="Margin" Value="0"/>
+            <!-- Standard margin -->
+            <Setter Property="BackgroundColor" Value="#2C2F38" />
+            <!-- Додано фон як у Entry -->
+        </Style>
+        <Style TargetType="Entry">
+            <Setter Property="TextColor" Value="#EAEAEA" />
+            <Setter Property="PlaceholderColor" Value="#757575" />
+            <Setter Property="BackgroundColor" Value="#2C2F38" />
+            <Setter Property="Keyboard" Value="Default" />
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="Margin" Value="0"/>
+            <!-- Standard margin -->
+        </Style>
+        <Style TargetType="Editor">
+            <Setter Property="TextColor" Value="#EAEAEA" />
+            <Setter Property="PlaceholderColor" Value="#757575" />
+            <Setter Property="BackgroundColor" Value="#2C2F38" />
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="Margin" Value="0"/>
+            <!-- Standard margin -->
+            <Setter Property="AutoSize" Value="TextChanges"/>
+            <!-- Auto-resize based on text -->
+        </Style>
+        <Style TargetType="RadioButton">
+            <Setter Property="TextColor" Value="#EAEAEA"/>
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Setter Property="BorderColor" Value="#3498db"/>
+            <Setter Property="BorderWidth" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="5,0"/>
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#1B75BB" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Margin" Value="0" />
+            <!-- Standard margin -->
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="HeightRequest" Value="50" />
+        </Style>
+        <Style TargetType="Frame">
+            <Setter Property="HasShadow" Value="False"/>
+            <Setter Property="BackgroundColor" Value="#2C2F38" />
+            <!-- Standard background -->
+            <Setter Property="Padding" Value="10"/>
+            <!-- Standard padding -->
+            <Setter Property="CornerRadius" Value="8"/>
+            <!-- Standard corner radius -->
+            <Setter Property="Margin" Value="0"/>
+            <!-- Standard margin -->
+        </Style>
+        <Style TargetType="TimePicker">
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="BackgroundColor" Value="#2C2F38" />
+            <Setter Property="Margin" Value="0"/>
+            <!-- Standard margin -->
+        </Style>
+        <Style TargetType="DatePicker">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="BackgroundColor" Value="#2C2F38" />
+                <Setter Property="Margin" Value="0"/>
+                <!-- Standard margin -->
+        </Style>
+    </ContentPage.Resources>
+
+    <!-- Використовуємо AbsoluteLayout, щоб розмістити ActivityIndicator поверх вмісту -->
+    <AbsoluteLayout>
+
+        <!-- Головний вміст сторінки -->
+        <!-- ScrollView для можливості прокрутки, якщо вміст не поміщається -->
+        <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <!-- Основний StackLayout з відступом 20 з усіх боків та відстанню 15 між елементами -->
+            <StackLayout Padding="20" Spacing="15" x:Name="detailsContainer">
+                <!-- Контейнер для відображення та редагування деталей -->
+
+                <!-- Повідомлення про помилку -->
+                <Label x:Name="errorMessageLabel"
+                       IsVisible="False"
+                       TextColor="Red"
+                       HorizontalTextAlignment="Center"
+                       Margin="0,0,0,10"/>
+                <!-- Додаємо відступ знизу -->
+
+                <!-- ID замовлення (не редагується) -->
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="ID Замовлення:" FontAttributes="Bold"/>
+                    <Label x:Name="sessionIdLabel" FontAttributes="Bold"/>
+                </StackLayout>
+
+                <!-- Тип сесії (радіо кнопки - хардкодно) -->
+                <Label Text="Тип сесії:" FontSize="Medium" Margin="0,5,0,0"/>
+                <!-- Додаємо невеликий відступ зверху -->
+                <StackLayout Orientation="Horizontal"
+                             Spacing="10"
+                             VerticalOptions="Center"
+                             x:Name="sessionTypeRadioButtonsContainer"
+                             Margin="0,0,0,10">
+                    <!-- Додаємо відступ знизу -->
+                    <!-- HARDCODED RadioButtons -->
+                    <RadioButton Content="VR" Value="VR" GroupName="SessionTypeGroup" CheckedChanged="SessionType_CheckedChanged" VerticalOptions="Center"/>
+                    <RadioButton Content="PS" Value="PS" GroupName="SessionTypeGroup" CheckedChanged="SessionType_CheckedChanged" VerticalOptions="Center"/>
+                    <RadioButton Content="Quest" Value="Quest" GroupName="SessionTypeGroup" CheckedChanged="SessionType_CheckedChanged" VerticalOptions="Center"/>
+                    <!-- Додайте інші статичні типи, якщо потрібно -->
+                </StackLayout>
+
+                <!-- Ім'я клієнта -->
+                <Label Text="Ім'я клієнта:" FontSize="Medium"/>
+                <Entry x:Name="clientNameEntry" Placeholder="Ім'я клієнта" Keyboard="Text"/>
+
+                <!-- Номер телефону -->
+                <Label Text="Номер телефону:" FontSize="Medium"/>
+                <Entry x:Name="phoneNumberEntry" Placeholder="Телефон клієнта" Keyboard="Telephone"/>
+
+                <!-- Дата -->
+                <Label Text="Дата:" FontSize="Medium"/>
+                <DatePicker x:Name="sessionDatePicker" Format="dd.MM.yyyy"/>
+
+                <!-- Час початку -->
+                <Label Text="Початок:" FontSize="Medium"/>
+                <TimePicker x:Name="startTimePicker" Format="HH:mm"/>
+
+                <!-- Час закінчення -->
+                <Label Text="Кінець:" FontSize="Medium"/>
+                <TimePicker x:Name="endTimePicker" Format="HH:mm"/>
+
+                <!-- Кількість людей -->
+                <Label Text="Кількість:" FontSize="Medium"/>
+                <Entry x:Name="numPeopleEntry" Placeholder="Кількість людей" Keyboard="Numeric"/>
+
+                <!-- Знижка (Picker) 
+                <Label Text="Знижка:" FontSize="Medium"/>
+                <Picker x:Name="discountPicker"
+                        Title="Оберіть знижку"
+                        ItemsSource="{Binding AvailableDiscounts}"
+                        SelectedItem="{Binding SelectedDiscount}"
+                        ItemDisplayBinding="{Binding Name}"/> -->
+                <!-- Відображаємо властивість Name об'єкта DiscountOption -->
+
+                <!-- Нотатки -->
+                <Label Text="Нотатки:" FontSize="Medium"/>
+                <Editor x:Name="notesEditor" Placeholder="Нотатки до замовлення" HeightRequest="80" AutoSize="TextChanges" />
+
+                <!-- Спосіб оплати (обирається перед записом оплати) -->
+                <Label Text="Спосіб оплати:" FontSize="Medium"/>
+                <Picker x:Name="paymentMethodPicker"
+                        Title="Спосіб оплати"
+                        ItemsSource="{Binding AvailablePaymentMethods}"
+                        SelectedItem="{Binding SelectedPaymentMethod}"
+                        ItemDisplayBinding="{Binding Method}"/>
+                <!-- Відображаємо властивість Method об'єкта PaymentMethodOption -->
+
+
+                <!-- Grid для відображення статусу та розрахованої ціни -->
+                <Grid ColumnSpacing="10" RowSpacing="5" Margin="0,10,0,0">
+                    <!-- Додаємо відступ зверху та менший Spacing між рядками -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <!-- Колонка для заголовка -->
+                        <ColumnDefinition Width="*" />
+                        <!-- Колонка для значення -->
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Рядок 0: Статус оплати (не редагується напряму) -->
+                    <Label Grid.Row="0" Grid.Column="0" Text="Статус оплати:" FontSize="Medium"/>
+                    <Label Grid.Row="0" Grid.Column="1" x:Name="paymentStatusLabel" />
+
+                    <!-- Рядок 1: Розрахована ціна (відображається після розрахунку) -->
+                    <Label Grid.Row="1" Grid.Column="0" Text="Розраховано:" FontSize="Medium"/>
+                    <Label Grid.Row="1" Grid.Column="1" x:Name="calculatedPriceLabel" />
+
+                    <!-- Фінальна ціна (вводиться користувачем) -->
+                    <!-- Винесено за межі Grid -->
+                </Grid>
+
+                <!-- Фінальна оплата (вводиться користувачем) -->
+                <Label Text="Фінальна оплата:" FontSize="Medium"/>
+                <Entry x:Name="finalPriceEntry"
+                       Placeholder="Введіть фінальну ціну"
+                       Keyboard="Numeric"/>
+
+
+                <!-- ОКРЕМИЙ КОНТЕЙНЕР ДЛЯ КНОПОК -->
+                <!-- Відстань 10 до цього StackLayout від попереднього елемента
+                     Відстань 8 між кнопками всередині цього StackLayout -->
+                <StackLayout Orientation="Vertical" Spacing="8" Margin="0,20,0,0">
+                    <!-- Збільшено відступ зверху для кнопок -->
+                    <Button x:Name="saveButton" Text="Зберегти зміни" Clicked="SaveButton_Clicked"/>
+                    <Button x:Name="recordPaymentButton" Text="Записати оплату" Clicked="RecordPaymentButton_Clicked"/>
+                    <Button x:Name="deleteButton" Text="Видалити замовлення" BackgroundColor="#6F1BC9" TextColor="White" Clicked="DeleteButton_Clicked"/>
+                </StackLayout>
+
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Activity Indicator (показуємо під час завантаження/збереження) -->
+        <ActivityIndicator x:Name="loadingIndicator"
+                           AbsoluteLayout.LayoutBounds="0.5,0.5,AutoSize,AutoSize"
+                           AbsoluteLayout.LayoutFlags="PositionProportional"
+                           IsRunning="False"
+                           IsVisible="False"
+                           Color="White"
+                           BackgroundColor="#80000000"/>
+        <!-- BackgroundColor з альфа-каналом створює напівпрозоре затемнення -->
+
+    </AbsoluteLayout>
+</ContentPage>

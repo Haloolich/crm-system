@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="crmV1.MainPage"
+             BackgroundColor="#181A20"
+             xmlns:models="clr-namespace:crmV1.Models">
+    <!-- Додаємо простір імен для нашої моделі -->
+
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="#EAEAEA" />
+            <Setter Property="FontFamily" Value="Roboto" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#2c3e50" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="FontFamily" Value="Roboto" />
+        </Style>
+        <!-- Стиль для ImageButton, щоб він не мав фону і відступів за замовчуванням -->
+        <Style TargetType="ImageButton">
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="CornerRadius" Value="0"/>
+        </Style>
+        <!-- Стиль для Image, щоб контролювати розмір та вирівнювання -->
+        <Style TargetType="Image">
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <AbsoluteLayout>
+
+        <!-- Головний вміст -->
+        <StackLayout AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0, 0, 1, 1">
+
+            <!-- Верхня панель -->
+            <Grid BackgroundColor="#212121" HeightRequest="60" Padding="7">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackLayout Grid.Column="0" Orientation="Horizontal" Spacing="15">
+                    <Image Source="drawable/logo.png" HeightRequest="40" WidthRequest="120" />
+                </StackLayout>
+                <!-- Виправлено Grid.Column="1" -->
+                <ImageButton x:Name="notificationsIcon" Source="drawable/notif.png" Clicked="OnNewClicked" HeightRequest="40" WidthRequest="40" HorizontalOptions="End" Grid.Column="1" />
+
+            </Grid>
+
+            <!-- Заголовок -->
+            <!-- Заголовок -->
+            <Frame BackgroundColor="#2C2F38" Padding="10" Margin="10" CornerRadius="12" HorizontalOptions="Center">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
+                    <ImageButton Source="drawable/prev.png" Clicked="PreviousDate" HeightRequest="30" WidthRequest="30"/>
+                    <Label x:Name="selectedDateLabel"
+                           FontSize="Medium"
+                           VerticalOptions="Center"
+                           GestureRecognizers="{TapGestureRecognizer Tapped=OpenDatePicker}" />
+                    <ImageButton Source="drawable/next.png" Clicked="NextDate" HeightRequest="30" WidthRequest="30"/>
+                </StackLayout>
+            </Frame>
+
+            <!-- Список сеансів -->
+            <!-- Додаємо ActivityIndicator з x:Name="loadingIndicator" -->
+            <!-- <ActivityIndicator x:Name="loadingIndicator" IsRunning="False" Color="Accent" HorizontalOptions="Center" VerticalOptions="Start" Margin="0,10,0,0"/> -->
+            <!-- Додано x:Name -->
+
+            <ScrollView VerticalOptions="FillAndExpand">
+                <StackLayout Padding="10">
+                    <ListView x:Name="sessionList"
+                              HasUnevenRows="True"
+                              BackgroundColor="Transparent"
+                              SeparatorVisibility="None"
+                              VerticalOptions="FillAndExpand">
+
+                        <!-- ItemsSource тепер буде прив'язано до ObservableCollection<SessionAvailability> -->
+                        <!-- ItemsSource тут прибрано, буде встановлюватися в коді -->
+                        <!-- <ListView.ItemsSource> ... </ListView.ItemsSource> -->
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <!-- Прив'язуємо DataTemplate до нашого класу моделі -->
+                                <ViewCell>
+                                    <Frame BackgroundColor="#1B75BB" Padding="10" CornerRadius="8" Margin="5">
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="10">
+                                            <!-- Прив'язка часу -->
+                                            <Label Text="{Binding Time}" FontSize="Medium" VerticalOptions="Center"/>
+
+                                            <!-- Контейнер для зображень зон (VR та PS) -->
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" Spacing="8">
+                                                <!-- Використовуємо BindableLayout для відображення списку VrZoneImages -->
+                                                <StackLayout BindableLayout.ItemsSource="{Binding VrZoneImages}"
+                                                             Orientation="Horizontal" Spacing="5">
+                                                    <!-- Шаблон для кожного зображення VR/Quest -->
+                                                    <BindableLayout.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <!-- Source прив'язано до поточного елемента списку ImageSource -->
+                                                            <Image Source="{Binding .}" HeightRequest="40" WidthRequest="40"/>
+                                                        </DataTemplate>
+                                                    </BindableLayout.ItemTemplate>
+                                                </StackLayout>
+
+                                                <!-- Зображення для PS зони -->
+                                                <Image Source="{Binding PsZoneImage}" HeightRequest="45" WidthRequest="45"/>
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <Frame.GestureRecognizers>
+                                            <!-- Передаємо весь об'єкт SessionAvailability при тапі -->
+                                            <TapGestureRecognizer Tapped="OnSessionTapped" CommandParameter="{Binding}" />
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                    </ListView>
+                </StackLayout>
+            </ScrollView>
+
+            <!-- Нижня панель -->
+            <!-- Прибрано Grid.Row="2" -->
+            <Grid BackgroundColor="#212121" HeightRequest="60">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <ImageButton Source="drawable/search.png" Grid.Column="0" Clicked="OnSearchClicked" HeightRequest="40" WidthRequest="40" />
+                <ImageButton Source="drawable/view.png" Grid.Column="1" Clicked="OnOrdersClicked" HeightRequest="40" WidthRequest="40" />
+                <ImageButton Source="drawable/account.png" Grid.Column="2" Clicked="OnAccountClicked" HeightRequest="40" WidthRequest="40" />
+                <ImageButton Source="drawable/add.png" Grid.Column="3" Clicked="OnAddClicked" HeightRequest="40" WidthRequest="40" />
+                <ImageButton Source="drawable/menu.png" Grid.Column="4" Clicked="OpenMenu" HeightRequest="40" WidthRequest="40" />
+            </Grid>
+        </StackLayout>
+
+        <!-- Затемнення -->
+        <BoxView x:Name="overlay" BackgroundColor="Black" Opacity="0.5"
+                 IsVisible="False"
+                 AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                 AbsoluteLayout.LayoutFlags="All">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="CloseMenu" />
+            </BoxView.GestureRecognizers>
+        </BoxView>
+
+        <!-- Календар (попап) -->
+        <!-- ВИПРАВЛЕНО AbsoluteLayout.LayoutBounds/LayoutFlags -->
+        <DatePicker x:Name="datePicker"
+             Format="dd.MM.yyyy"
+             TextColor="Black"
+             BackgroundColor="White"
+             IsVisible="False"
+             DateSelected="OnDateSelected"
+             AbsoluteLayout.LayoutBounds="0.5,0.5,AutoSize,AutoSize"
+            AbsoluteLayout.LayoutFlags="PositionProportional"/>
+        <!-- Тільки PositionProportional для центрування за координатами -->
+
+
+        <!-- Меню -->
+        <StackLayout x:Name="sideMenu"
+             BackgroundColor="#2c3e50"
+             Padding="10,20,10,10"
+             VerticalOptions="FillAndExpand"
+             IsVisible="False"
+             AbsoluteLayout.LayoutBounds="0, 0, 0.75, 1"
+             AbsoluteLayout.LayoutFlags="SizeProportional, HeightProportional">
+
+            <!-- Кнопки меню -->
+            <!-- Пункт "Головна" - завжди видимий -->
+            <StackLayout Orientation="Horizontal" Padding="5" HorizontalOptions="FillAndExpand">
+                <Image Source="drawable/home.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center"/>
+                <Button Text="Головна" Clicked="CloseMenu"
+                BackgroundColor="Transparent" TextColor="White"
+                Padding="10,0,0,0" FontSize="Medium"
+                HorizontalOptions="StartAndExpand" BorderColor="Transparent"/>
+            </StackLayout>
+
+            <!-- Пункт "Аналітика" - відображається тільки адмінам -->
+            <StackLayout Orientation="Horizontal" Padding="5" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsAdmin}">
+                <!-- ДОДАНО IsVisible -->
+                <Image Source="drawable/analitics.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center"/>
+                <Button x:Name="analyticsButton" Text="Аналітика" Clicked="OnAnalyticsClicked"
+                BackgroundColor="Transparent" TextColor="White"
+                Padding="10,0,0,0" FontSize="Medium"
+                HorizontalOptions="StartAndExpand" BorderColor="Transparent"/>
+            </StackLayout>
+
+            <!-- Пункт "Акаунт" - завжди видимий -->
+            <StackLayout Orientation="Horizontal" Padding="5" HorizontalOptions="FillAndExpand">
+                <Image Source="drawable/account.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center"/>
+                <Button Text="Акаунт" Clicked="OnAccountClicked"
+                BackgroundColor="Transparent" TextColor="White"
+                Padding="10,0,0,0" FontSize="Medium"
+                HorizontalOptions="StartAndExpand" BorderColor="Transparent"/>
+            </StackLayout>
+
+            <!-- Пункт "Сповіщення" - завжди видимий -->
+            <StackLayout Orientation="Horizontal" Padding="5" HorizontalOptions="FillAndExpand">
+                <Image x:Name="menuNotificationIcon" Source="drawable/notif.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center"/>
+                <Button Text="Сповіщення" Clicked="OnNewClicked"
+                BackgroundColor="Transparent" TextColor="White"
+                Padding="10,0,0,0" FontSize="Medium"
+                HorizontalOptions="StartAndExpand" BorderColor="Transparent"/>
+            </StackLayout>
+
+            <!-- Пункт "Підсумок дня" - відображається тільки адмінам -->
+            <StackLayout Orientation="Horizontal" Padding="5" HorizontalOptions="FillAndExpand">
+                
+                <Image Source="drawable/total.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center"/>
+                <Button Text="Підсумок дня" Clicked="OnDailySummaryClicked"
+                BackgroundColor="Transparent" TextColor="White"
+                Padding="10,0,0,0" FontSize="Medium"
+                HorizontalOptions="StartAndExpand" BorderColor="Transparent"/>
+            </StackLayout>
+
+            <!-- Пункт "Клуби" - відображається тільки адмінам -->
+            <StackLayout Orientation="Horizontal" Padding="5" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsAdmin}">
+                <!-- ДОДАНО IsVisible -->
+                <Image Source="drawable/clubs.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center"/>
+                <Button x:Name="clubsButton" Text="Клуби" Clicked="OnClubsClicked"
+                BackgroundColor="Transparent" TextColor="White"
+                Padding="10,0,0,0" FontSize="Medium"
+                HorizontalOptions="StartAndExpand" BorderColor="Transparent"/>
+            </StackLayout>
+
+            <!-- Пункт "Менеджери" - відображається тільки адмінам -->
+            <StackLayout Orientation="Horizontal" Padding="5" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsAdmin}">
+                <!-- ДОДАНО IsVisible -->
+                <Image Source="drawable/mangers.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center"/>
+                <Button x:Name="managersButton" Text="Менеджери" Clicked="OnManagersClicked"
+                BackgroundColor="Transparent" TextColor="White"
+                Padding="10,0,0,0" FontSize="Medium"
+                HorizontalOptions="StartAndExpand" BorderColor="Transparent"/>
+            </StackLayout>
+
+            <!-- Приклад пункту меню "Знижки" (якщо ви його додасте пізніше) -->
+            <!-- Якщо ви створите такий пункт, додайте до його StackLayout IsVisible="{Binding IsAdmin}" -->
+            <!--
+                 <StackLayout Orientation="Horizontal" Padding="5" HorizontalOptions="FillAndExpand" IsVisible="{Binding IsAdmin}">
+                     <Image Source="drawable/discounts.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center"/>
+                     <Button Text="Знижки" Clicked="OnDiscountsClicked"
+                         BackgroundColor="Transparent" TextColor="White"
+                         Padding="10,0,0,0" FontSize="Medium"
+                         HorizontalOptions="StartAndExpand" BorderColor="Transparent"/>
+                 </StackLayout>
+                 -->
+
+        </StackLayout>
+        <ActivityIndicator x:Name="loadingIndicator"
+                   AbsoluteLayout.LayoutBounds="0.5,0.5,AutoSize,AutoSize"
+                   AbsoluteLayout.LayoutFlags="PositionProportional"
+                   IsRunning="False"
+                   IsVisible="False"
+                   Color="White"
+                   BackgroundColor="Transparent"/>
+    </AbsoluteLayout>
+</ContentPage>

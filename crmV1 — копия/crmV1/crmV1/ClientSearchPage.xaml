@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="crmV1.Views.ClientSearchPage"
+             Title="Пошук Клієнта"
+             BackgroundColor="#181A20">
+
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="#EAEAEA" />
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="FontSize" Value="Medium" />
+        </Style>
+        <Style TargetType="Entry">
+            <Setter Property="BackgroundColor" Value="#2C2F38" />
+            <Setter Property="TextColor" Value="#EAEAEA" />
+            <Setter Property="PlaceholderColor" Value="#999999" />
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="HeightRequest" Value="45"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="Keyboard" Value="Telephone"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#1B75BB" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="HeightRequest" Value="45"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+        </Style>
+
+        <Style x:Key="SectionHeaderLabelStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="#1B75BB" />
+            <Setter Property="FontSize" Value="Large" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="Margin" Value="0,15,0,5" />
+        </Style>
+        <Style x:Key="ValueLabelStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="#EAEAEA" />
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="Margin" Value="0,2,0,2" />
+            <Setter Property="LineBreakMode" Value="WordWrap"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto, *, Auto" RowSpacing="0">
+
+        <StackLayout Grid.Row="0" Padding="15" Spacing="10" BackgroundColor="#212121">
+            <Label Text="Пошук клієнта за номером телефону" HorizontalOptions="Center" FontSize="Title" TextColor="#EAEAEA"/>
+            <Entry x:Name="phoneNumberEntry" Placeholder="Введіть номер телефону" ReturnType="Search" Completed="OnSearchButtonClicked"/>
+            <Button x:Name="searchButton" Text="Шукати" Clicked="OnSearchButtonClicked"/>
+        </StackLayout>
+
+        <ScrollView Grid.Row="1">
+            <StackLayout x:Name="searchResultsStack" IsVisible="False" Padding="15" Spacing="15">
+
+                <ActivityIndicator x:Name="loadingIndicator" IsRunning="False" IsVisible="False" Color="#1B75BB" HorizontalOptions="Center" VerticalOptions="Center" />
+
+                <!-- StackLayout для відображення інформації про клієнта -->
+                <!-- Тепер він завжди IsVisible=true, якщо клієнта знайдено. Внутрішні Labels покажуть "Невідомо" якщо даних немає. -->
+                <StackLayout x:Name="clientInfoStack" IsVisible="False" Spacing="5">
+                    <Label Text="Інформація про клієнта" Style="{StaticResource SectionHeaderLabelStyle}"/>
+
+                    <!-- ВИКОРИСТОВУЄМО FormattedText та нові Display властивості -->
+                    <Label Style="{StaticResource ValueLabelStyle}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Ім'я: "/>
+                                <Span Text="{Binding DisplayName}" FontAttributes="Bold"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <Label Style="{StaticResource ValueLabelStyle}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Номер телефону: "/>
+                                <Span Text="{Binding DisplayPhoneNumber}" FontAttributes="Bold"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <Label Style="{StaticResource ValueLabelStyle}">
+                        <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Електронна пошта: "/>
+                            <Span Text="{Binding DisplayEmail}" FontAttributes="Bold"/>
+                        </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <Label Style="{StaticResource ValueLabelStyle}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Дата народження: "/>
+                                <!-- Ця властивість DisplayDateOfBirthAndAge вже включає вік та обробляє "Невідомо" -->
+                                <Span Text="{Binding DisplayDateOfBirthAndAge}" FontAttributes="Bold"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <!-- Приклад використання DisplayRegistrationDateAndYearsInClub -->
+                    <Label Style="{StaticResource ValueLabelStyle}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="В клубі з: "/>
+                                <Span Text="{Binding DisplayRegistrationDateAndYearsInClub}" FontAttributes="Bold"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <!-- Або, якщо використовуєте DisplayYearsInClubString, можна так:
+                     <Label Style="{StaticResource ValueLabelStyle}">
+                          <Label.FormattedText>
+                              <FormattedString>
+                                  <Span Text="Років в клубі: "/>
+                                  <Span Text="{Binding DisplayYearsInClubString}" FontAttributes="Bold"/>
+                                  <Span Text=" р." IsVisible="{Binding DisplayYearsInClubString, Converter={StaticResource IsNotUnknownConverter}}"/> // Потрібен конвертер для приховування "р."
+                              </FormattedString>
+                          </FormattedText>
+                     </Label>
+                     -->
+
+
+                </StackLayout>
+
+                <!-- StackLayout для відображення списку сесій -->
+                <!-- Видимість тепер прив'язана до властивості HasSessions в моделі -->
+                <StackLayout x:Name="sessionsStack" IsVisible="False" Spacing="5">
+                    <Label Text="Історія сесій" Style="{StaticResource SectionHeaderLabelStyle}"/>
+
+                    <!-- ListView для відображення списку сесій -->
+                    <ListView x:Name="sessionsListView"
+                              HasUnevenRows="True"
+                              BackgroundColor="Transparent"
+                              SeparatorVisibility="None"
+                              VerticalOptions="FillAndExpand"
+                              HeightRequest="300">
+
+                        <!-- Шаблон для відображення одного елемента сесії -->
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <!-- Використовуємо Frame для красивого вигляду елемента списку -->
+                                <Frame BackgroundColor="#2C2F38" Padding="10" CornerRadius="8" Margin="0,2,0,2">
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                        <!-- Прив'язка форматованої дати сесії -->
+                                        <Label Text="{Binding FormattedDate}" FontSize="Medium" TextColor="#EAEAEA"/>
+                                        <!-- Прив'язка типу сесії, вирівняно праворуч -->
+                                        <Label Text="{Binding SessionType}" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="EndAndExpand" TextColor="#1B75BB"/>
+                                    </StackLayout>
+                                </Frame>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+
+                <!-- Повідомлення, якщо клієнта не знайдено -->
+                <Label x:Name="notFoundMessageLabel" Text="Клієнта з таким номером не знайдено."
+                       TextColor="Red"
+                       HorizontalOptions="Center"
+                       IsVisible="False"
+                       Margin="0,20,0,0"/>
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Нижня панель (якщо потрібна) -->
+        <!-- <Grid Grid.Row="2" BackgroundColor="#212121" HeightRequest="60"> ... </Grid> -->
+
+    </Grid>
+</ContentPage>

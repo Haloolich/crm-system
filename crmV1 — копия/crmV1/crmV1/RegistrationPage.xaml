@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="crmV1.RegistrationPage"
+             BackgroundColor="#181A20">
+
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="#EAEAEA" />
+            <Setter Property="FontFamily" Value="Roboto" />
+        </Style>
+        <Style TargetType="Entry">
+            <Setter Property="TextColor" Value="#EAEAEA" />
+            <Setter Property="BackgroundColor" Value="#2C2F38" />
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="PlaceholderColor" Value="#7F8C8D" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#1B75BB" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="FontFamily" Value="Roboto" />
+        </Style>
+        <!-- Додамо стиль для посилання -->
+        <Style x:Key="LinkStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="#1B75BB" />
+            <!-- Колір як у кнопки або інший колір посилання -->
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="VerticalOptions" Value="EndAndExpand" />
+            <!-- Розміщуємо внизу -->
+            <Setter Property="Margin" Value="0,20,0,0" />
+            <!-- Відступ зверху -->
+        </Style>
+        <!-- Додамо стиль для Picker -->
+        <Style TargetType="Picker">
+            <Setter Property="TextColor" Value="#EAEAEA" />
+            <Setter Property="BackgroundColor" Value="#2C2F38" />
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="TitleColor" Value="#7F8C8D"/>
+            <!-- Placeholder color for Picker -->
+        </Style>
+        <!-- Додамо стиль для ActivityIndicator -->
+        <Style TargetType="ActivityIndicator">
+            <Setter Property="Color" Value="#1B75BB" />
+        </Style>
+    </ContentPage.Resources>
+
+    <StackLayout Padding="20" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+        <Label Text="Реєстрація" FontSize="Large" HorizontalOptions="Center" />
+
+        <Entry x:Name="nameEntry" Placeholder="Ім'я" />
+        <Entry x:Name="phoneEntry" Placeholder="Номер телефону" Keyboard="Telephone"/>
+        <Entry x:Name="loginEntry" Placeholder="Логін" />
+        <Entry x:Name="passwordEntry" Placeholder="Пароль" IsPassword="True" />
+
+        <!-- Нові елементи для вибору клубу -->
+        <Label Text="Оберіть клуб:" Margin="0,10,0,0"/>
+        <Picker x:Name="clubPicker"
+                Title="Виберіть клуб"
+                IsEnabled="False">
+            <!-- Спочатку відключено, поки завантажуються дані -->
+        </Picker>
+        <ActivityIndicator x:Name="loadingIndicator" IsRunning="False" IsVisible="False"/>
+
+        <Button x:Name="registerButton" Text="Зареєструватися" Clicked="OnRegisterClicked" Margin="0,20,0,0"/>
+
+        <Label x:Name="errorMessageLabel" TextColor="Red" HorizontalOptions="Center" IsVisible="False"/>
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,20,0,0">
+            <Label Text="Вже маєте акаунт?" VerticalOptions="Center"/>
+            <Button Text="Увійти" Clicked="OnLoginTapped" BackgroundColor="Transparent" TextColor="#3498db" Padding="0" VerticalOptions="Center"/>
+        </StackLayout>
+
+    </StackLayout>
+</ContentPage>

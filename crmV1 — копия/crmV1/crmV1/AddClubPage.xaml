@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="crmV1.AddClubPage"
+             Title="Додати новий клуб"
+             BackgroundColor="#181A20">
+
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="#EAEAEA" />
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="FontSize" Value="Medium"/>
+        </Style>
+            <Style TargetType="Entry">
+                <Setter Property="TextColor" Value="#EAEAEA" />
+                <Setter Property="PlaceholderColor" Value="#A9A9A9" />
+                <Setter Property="BackgroundColor" Value="#2C2F38" />
+                <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="FontSize" Value="Medium"/>
+            <Setter Property="Margin" Value="0,2"/>
+                <Setter Property="Keyboard" Value="Text"/>
+                <!-- За замовчуванням -->
+            </Style>
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#1B75BB" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Margin" Value="0,30" />
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="HeightRequest" Value="50" />
+        </Style>
+        <!-- Стилі для Entry з конкретними Keyboard -->
+                    <Style TargetType="Entry" x:Key="PhoneEntryStyle">
+                        <Setter Property="Keyboard" Value="Telephone"/>
+            <Setter Property="TextColor" Value="#EAEAEA" />
+            <Setter Property="PlaceholderColor" Value="#A9A9A9" />
+            <Setter Property="BackgroundColor" Value="#2C2F38" />
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="FontSize" Value="Medium"/>
+            <Setter Property="Margin" Value="0,2"/>
+        </Style>
+                    <Style TargetType="Entry" x:Key="EmailEntryStyle">
+                        <Setter Property="Keyboard" Value="Email"/>
+            <Setter Property="TextColor" Value="#EAEAEA" />
+            <Setter Property="PlaceholderColor" Value="#A9A9A9" />
+            <Setter Property="BackgroundColor" Value="#2C2F38" />
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="FontSize" Value="Medium"/>
+            <Setter Property="Margin" Value="0,2"/>
+        </Style>
+                    <Style TargetType="Entry" x:Key="NumericEntryStyle">
+                        <Setter Property="Keyboard" Value="Numeric"/>
+            <Setter Property="TextColor" Value="#EAEAEA" />
+            <Setter Property="PlaceholderColor" Value="#A9A9A9" />
+            <Setter Property="BackgroundColor" Value="#2C2F38" />
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="FontSize" Value="Medium"/>
+            <Setter Property="Margin" Value="0,2"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="10">
+
+            <Label Text="Назва клубу:" />
+            <Entry x:Name="nameEntry" Placeholder="Введіть назву" />
+
+            <Label Text="Адреса:" />
+            <Entry x:Name="addressEntry" Placeholder="Введіть адресу" />
+
+            <Label Text="Номер телефону:" />
+            <Entry x:Name="phoneEntry" Placeholder="Введіть номер" Style="{StaticResource PhoneEntryStyle}" />
+
+            <Label Text="Email:" />
+            <Entry x:Name="emailEntry" Placeholder="Введіть email" Style="{StaticResource EmailEntryStyle}" />
+
+            <Label Text="Макс. зон PS:" />
+            <Entry x:Name="maxPsEntry" Placeholder="Кількість зон PS" Style="{StaticResource NumericEntryStyle}" />
+
+            <Label Text="Макс. зон VR/Quest:" />
+            <Entry x:Name="maxVrEntry" Placeholder="Кількість зон VR/Quest" Style="{StaticResource NumericEntryStyle}" />
+
+            <Button x:Name="saveButton" Text="Зберегти клуб" Clicked="OnSaveClicked" />
+
+            <!-- ОНОВЛЕНО: Колір задано прямо, без StaticResource -->
+            <ActivityIndicator x:Name="loadingIndicator"
+                               IsRunning="False"
+                               IsVisible="False"
+                               Color="White"
+                HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

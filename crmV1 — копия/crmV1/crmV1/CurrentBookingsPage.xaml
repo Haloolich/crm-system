@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:crmV1;assembly=crmV1"
+             x:Class="crmV1.CurrentBookingsPage"
+             Title="Поточні бронювання"
+             BackgroundColor="#181A20">
+    <!-- Глобальний фон -->
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:InverseBoolConverter x:Key="InverseBoolConverter" />
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="#EAEAEA" />
+                <Setter Property="FontFamily" Value="Roboto" />
+                <Setter Property="FontSize" Value="Small" />
+                <!-- Замініть на потрібний шрифт -->
+            </Style>
+            <Style x:Key="BookingTimeLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="FontSize" Value="Medium" />
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>
+            <Style x:Key="BoldWhiteLabel" TargetType="Label">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="Small" />
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#1B75BB" />
+                <!-- Основний колір -->
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="FontFamily" Value="Roboto" />
+            </Style>
+            <!-- Додаємо новий стиль для статусу оплати, якщо потрібно -->
+            <Style x:Key="PaymentStatusLabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Small" />
+                <Setter Property="FontAttributes" Value="Italic" />
+                <!-- Колір можна задати тут або динамічно в C# -->
+                <!-- <Setter Property="TextColor" Value="LightGray" /> -->
+            </Style>
+            <Style TargetType="ImageButton">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+            </Style>
+            <Style TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="#1B75BB" />
+                <Setter Property="Padding" Value="10" />
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="Margin" Value="5" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout Spacing="15" Padding="10">
+            <!-- Напис "Бронювання на (час)" -->
+            <Label Text="{Binding BookingTimeLabel}" Style="{StaticResource BookingTimeLabelStyle}" />
+
+            <!-- Список бронювань -->
+            <ListView ItemsSource="{Binding BookingItems}" ItemTapped="OnBookingItemTapped"
+                      BackgroundColor="Transparent" SeparatorVisibility="None" HasUnevenRows="True" RowHeight="100">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame>
+                                <StackLayout Orientation="Vertical">
+                                    <Label Text="{Binding ClientName, StringFormat='Клієнт: {0}'}"
+                                           IsVisible="{Binding IsFreeZone, Converter={StaticResource InverseBoolConverter}}" />
+                                    <Label Text="Вільна зона" Style="{StaticResource BoldWhiteLabel}" IsVisible="{Binding IsFreeZone}" />
+                                    <Label Text="{Binding StartTime, StringFormat='Початок: {0:HH:mm}'}" />
+                                    <Label Text="{Binding EndTime, StringFormat='Кінець: {0:HH:mm}'}" />
+                                    <Label Text="{Binding NumPeople, StringFormat='Кількість людей: {0}'}" IsVisible="{Binding IsFreeZone, Converter={StaticResource InverseBoolConverter}}" />
+                                    <Label Text="{Binding SessionType, StringFormat='Тип сеансу: {0}'}" IsVisible="{Binding IsFreeZone, Converter={StaticResource InverseBoolConverter}}" />
+                                    <Label Text="{Binding LocalizedPaymentStatus, StringFormat='Оплата: {0}'}" IsVisible="{Binding IsFreeZone, Converter={StaticResource InverseBoolConverter}}" Style="{StaticResource PaymentStatusLabelStyle}" TextColor="{Binding PaymentStatusColor}"  />
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

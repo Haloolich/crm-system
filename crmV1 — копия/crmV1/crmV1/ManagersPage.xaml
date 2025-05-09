@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="crmV1.Views.ManagersPage"
+             xmlns:viewmodels="clr-namespace:crmV1.ViewModels"
+             xmlns:models="clr-namespace:crmV1.Models"
+             xmlns:local="clr-namespace:crmV1.Converters"
+             Title="Менеджери"
+             BackgroundColor="#181A20"
+             x:Name="pageRoot">
+    <!-- x:Name сторінки для посилань (використовується в Binding Source) -->
+
+    <!-- Переконайтесь, що у вас є оголошення конвертерів -->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!-- ... інші ресурси ... 
+            <local:InverseBoolConverter x:Key="InverseBoolConverter"/>-->
+            <local:ListEmptyToBoolConverter x:Key="ListEmptyToBoolConverter"/>
+            <local:ManagerStatusTextConverter x:Key="ManagerStatusTextConverter"/>
+            <!-- ... інші стилі та конвертери ... -->
+
+            <!-- Базовий стиль для кнопок дій всередині ListView -->
+            <!-- Використовуємо x:Key, щоб він не був неявним -->
+            <Style TargetType="Button" x:Key="ActionButtonBaseStyle">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontSize" Value="Small" />
+                <Setter Property="CornerRadius" Value="5" />
+                <Setter Property="Padding" Value="10,5" />
+                <Setter Property="HeightRequest" Value="35" />
+                <!-- <Setter Property="FontFamily" Value="Roboto" /> -->
+            </Style>
+
+            <!-- Стиль для кнопки "Детальніше" -->
+            <Style TargetType="Button" BasedOn="{StaticResource ActionButtonBaseStyle}" x:Key="DetailsButtonStyle">
+                <Setter Property="BackgroundColor" Value="#1B75BB" />
+            </Style>
+
+            <!-- Стиль для кнопки "Звільнити" -->
+            <Style TargetType="Button" BasedOn="{StaticResource ActionButtonBaseStyle}" x:Key="DismissButtonStyle">
+                <Setter Property="BackgroundColor" Value="#E74C3C" />
+            </Style>
+
+            <!-- Стиль для кнопки "Найняти" -->
+            <Style TargetType="Button" BasedOn="{StaticResource ActionButtonBaseStyle}" x:Key="HireButtonStyle">
+                <Setter Property="BackgroundColor" Value="#2ECC71" />
+            </Style>
+            <!-- ... інші стилі ... -->
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+    <ContentPage.ToolbarItems>
+        <!-- Кнопка оновлення на панелі навігації -->
+        <!-- Прив'язка до команди ViewModel -->
+        <ToolbarItem Text="Оновити" Command="{Binding LoadManagersCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <!-- Використовуємо AbsoluteLayout для розміщення індикатора завантаження поверх основного вмісту -->
+    <AbsoluteLayout>
+
+        <!-- Основний вміст сторінки -->
+        <StackLayout AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0,0,1,1"
+                     Padding="10">
+
+            <!-- RefreshView для функціоналу "потягни для оновлення" -->
+            <RefreshView Command="{Binding LoadManagersCommand}"
+                         IsRefreshing="{Binding IsLoading}"
+                         VerticalOptions="FillAndExpand">
+
+                                <ListView ItemsSource="{Binding ManagersGrouped}"
+                          IsGroupingEnabled="True"
+                          GroupDisplayBinding="{Binding Key}"
+                    HasUnevenRows="True"
+                          SeparatorVisibility="None"
+                          BackgroundColor="Transparent"
+                          VerticalOptions="FillAndExpand"
+                          IsVisible="{Binding ShowNoManagersMessage, Converter={StaticResource InverseBoolConverter}}">
+
+                    <!-- !!! ВИДАЛІТЬ ЦЕЙ ОБРОБНИК ItemTapped, якщо ви переходите до деталей ЧЕРЕЗ КНОПКУ "Детальніше" !!! -->
+                    <!-- ItemTapped="OnManagerSelected" -->
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Frame BackgroundColor="#2C2F38" CornerRadius="8" Margin="0,3,0,3" Padding="10">
+                                    <StackLayout>
+                                        <!-- Ім'я менеджера та статус -->
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding Name}" FontSize="Medium" TextColor="#EAEAEA" HorizontalOptions="StartAndExpand"/>
+                                            <!-- Відображення статусу -->
+                                            <Label Text="{Binding Status, Converter={StaticResource ManagerStatusTextConverter}}"
+                                                   FontSize="Small"
+                                                   VerticalOptions="Center"
+                                                   TextColor="DarkGray"/>
+                                        </StackLayout>
+
+                                        <!-- Телефон та Роль -->
+                                        <Label Text="{Binding PhoneNumber}" FontSize="Small" TextColor="#AAAAAA"/>
+                                        <Label Text="{Binding Role, StringFormat='Роль: {0}'}" FontSize="Small" TextColor="#AAAAAA"/>
+
+                                        <!-- Кнопки дій -->
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" Spacing="10" Margin="0,5,0,0">
+                                            <!-- Кнопка "Детальніше" -->
+                                            <Button Text="Детальніше"
+                                                    Command="{Binding Source={x:Reference pageRoot}, Path=BindingContext.NavigateToManagerDetailsCommand}"
+                                                    CommandParameter="{Binding ManagerId}"
+                                                    Style="{StaticResource DetailsButtonStyle}"/>
+
+                                                    <!-- Кнопка "Звільнити" (видима, якщо статус не "Dismissed") -->
+                                                    <Button Text="Звільнити"
+                                                    Command="{Binding Source={x:Reference pageRoot}, Path=BindingContext.DismissManagerCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                        Style="{StaticResource DismissButtonStyle}"
+                                                    IsVisible="{Binding IsDismissed, Converter={StaticResource InverseBoolConverter}}"/>
+
+                                                        <!-- Кнопка "Найняти" (видима, якщо статус "Dismissed") -->
+                                                        <Button Text="Найняти"
+                                                    Command="{Binding Source={x:Reference pageRoot}, Path=BindingContext.HireManagerCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                            Style="{StaticResource HireButtonStyle}"
+                                                    IsVisible="{Binding IsDismissed}"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                    <!-- Шаблон заголовка групи -->
+                    <ListView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Frame BackgroundColor="#1B2631" Padding="10" Margin="5,10,5,0" CornerRadius="8">
+                                    <Label Text="{Binding Key}"
+                                           FontSize="Large"
+                                           FontAttributes="Bold"
+                                           TextColor="#EAEAEA"/>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.GroupHeaderTemplate>
+
+                </ListView>
+
+            </RefreshView>
+
+            <!-- Повідомлення про відсутність менеджерів -->
+            <!-- Видиме тільки, коли ShowNoManagersMessage у ViewModel = true -->
+            <Label Text="Немає менеджерів для відображення."
+                   IsVisible="{Binding ShowNoManagersMessage}"
+                   HorizontalOptions="Center"
+                   VerticalOptions="CenterAndExpand"
+                   TextColor="#AAAAAA"/>
+
+        </StackLayout>
+
+        <!-- Індикатор завантаження -->
+        <ActivityIndicator AbsoluteLayout.LayoutBounds="0.5,0.5,AutoSize,AutoSize"
+                           AbsoluteLayout.LayoutFlags="PositionProportional"
+                           IsRunning="{Binding IsLoading}"
+                           IsVisible="{Binding IsLoading}"
+                           Color="White"/>
+
+    </AbsoluteLayout>
+</ContentPage>

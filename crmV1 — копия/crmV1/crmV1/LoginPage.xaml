@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="crmV1.LoginPage"
+             BackgroundColor="#181A20">
+
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="#EAEAEA" />
+            <Setter Property="FontFamily" Value="Roboto" />
+        </Style>
+        <Style TargetType="Entry">
+            <Setter Property="TextColor" Value="#EAEAEA" />
+            <Setter Property="BackgroundColor" Value="#2C2F38" />
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="PlaceholderColor" Value="#7F8C8D" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#1B75BB" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="FontFamily" Value="Roboto" />
+        </Style>
+        <Style TargetType="ImageButton">
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Setter Property="WidthRequest" Value="35"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <AbsoluteLayout>
+        <!-- Кнопка Help у верхньому лівому куті -->
+        <ImageButton Source="drawable/help.png" Clicked="OnHelpClicked" Margin="10"/>
+        <!-- Використовуємо AutoSize або фіксовані розміри, як WidthRequest/HeightRequest у стилі -->
+
+        <!-- Основний вміст сторінки -->
+        <StackLayout Padding="20"
+                     VerticalOptions="Center"
+                     HorizontalOptions="FillAndExpand"
+                     AbsoluteLayout.LayoutFlags="All"
+                     AbsoluteLayout.LayoutBounds="0,0,1,1">
+            <!-- Додайте невеликий відступ зверху, щоб вміст не перекривався кнопкою -->
+            <BoxView HeightRequest="40" BackgroundColor="Transparent"/>
+
+            <Label Text="Авторизація" FontSize="Large" HorizontalOptions="Center" Margin="0,0,0,20"/>
+
+            <Entry x:Name="loginEntry" Placeholder="Логін" />
+            <Entry x:Name="passwordEntry" Placeholder="Пароль" IsPassword="True" Margin="0,10,0,10" />
+
+            <Button Text="Увійти" Clicked="OnLoginClicked" />
+
+            <Label x:Name="errorMessageLabel" TextColor="Red" HorizontalOptions="Center" IsVisible="False" Margin="0,10,0,10"/>
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,20,0,0">
+                <Label Text="Не маєте аккаунту?" VerticalOptions="Center"/>
+                <Button Text="Зареєструватися" Clicked="OnRegisterClicked" BackgroundColor="Transparent" TextColor="#3498db" Padding="0" VerticalOptions="Center"/>
+            </StackLayout>
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>

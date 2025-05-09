@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="crmV1.ClubsPage"
+             Title="Клуби"
+             BackgroundColor="#181A20"
+             xmlns:models="clr-namespace:crmV1.Models">
+    <!-- Додаємо простір імен для моделі -->
+
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="#EAEAEA" />
+            <Setter Property="FontFamily" Value="Roboto" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#1B75BB" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="FontSize" Value="Small"/>
+        </Style>
+        <!-- Стиль для кнопок дій у списку -->
+        <Style TargetType="Button" x:Key="ActionButtonStyle">
+            <Setter Property="BackgroundColor" Value="#1B75BB" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="FontFamily" Value="Roboto" />
+            <Setter Property="HeightRequest" Value="40" />
+        </Style>
+        <!-- Стиль для кнопки Видалити (щоб виділити)
+        <Style TargetType="Button" x:Key="DeleteButtonStyle">
+            <Setter Property="TextColor" Value="#E74C3C"/>
+        </Style> -->
+    </ContentPage.Resources>
+
+    <StackLayout>
+        <!-- Індикатор завантаження -->
+        <ActivityIndicator x:Name="loadingIndicator"
+                           IsRunning="False"
+                           IsVisible="False"
+                           Color="White"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           Margin="0,10,0,0"/>
+        <Label Text="КЛУБИ МЕРЕЖІ Mr.VR" FontSize="Large" HorizontalOptions="Center" Margin="0,25,0,20"/>
+        <!-- Список клубів -->
+        <ListView x:Name="clubsListView"
+                  HasUnevenRows="True"
+                  BackgroundColor="Transparent"
+                  SeparatorVisibility="None"
+                  VerticalOptions="FillAndExpand">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame BackgroundColor="#2C2F38" Padding="10" CornerRadius="8" Margin="5,3">
+                            <StackLayout Orientation="Vertical" Spacing="5">
+                                <!-- Назва та статус -->
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                    <Label Text="{Binding Name}" FontSize="Medium" FontAttributes="Bold" VerticalOptions="CenterAndExpand"/>
+                                    <!-- Відображаємо статус -->
+                                    <Label Text="{Binding Status}" FontSize="Small" VerticalOptions="Center" HorizontalOptions="End" TextColor="#A9A9A9"/>
+                                </StackLayout>
+                                <!-- Адреса та зони -->
+                                <StackLayout Orientation="Vertical" Spacing="2">
+                                    <Label Text="{Binding Address}" FontSize="Small"/>
+                                    <StackLayout Orientation="Horizontal" Spacing="10">
+                                        <Label Text="{Binding MaxPsZones, StringFormat='PS: {0}'}" FontSize="Micro" TextColor="#A9A9A9"/>
+                                        <Label Text="{Binding MaxVrQuestZones, StringFormat='VR: {0}'}" FontSize="Micro" TextColor="#A9A9A9"/>
+                                    </StackLayout>
+                                </StackLayout>
+
+                                <!-- Кнопки дій -->
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" Spacing="0">
+                                    <Button Text="Деталі" Style="{StaticResource ActionButtonStyle}" Clicked="OnDetailsClicked" CommandParameter="{Binding .}"/>
+                                    <Button Text="Видалити" Style="{StaticResource ActionButtonStyle}" BackgroundColor="#6F1BC9" TextColor="White" Clicked="OnDeleteClicked" CommandParameter="{Binding .}"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- Кнопка Додати клуб -->
+        <Button Text="Додати новий клуб" Clicked="OnAddClubClicked" Margin="20"/>
+
+    </StackLayout>
+</ContentPage>

@@ -1,0 +1,11 @@
+﻿<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:crmV1"
+             x:Class="crmV1.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <local:InverseBoolConverter x:Key="InverseBoolConverter" />
+            <!-- Додайте інші ресурси тут (стилі, кольори, конвертери тощо) -->
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
